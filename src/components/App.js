@@ -10,6 +10,7 @@ import Default from './Default'
 import Modal from './Modal'
 import Login from './login';
 import SignUp from './SignUp';
+import Checkout from "./Checkout";
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
         <Route 
         path="/details" 
         component={Details}></Route>
+        <Route 
+        path="/checkout" 
+        component={Checkout}></Route>
         <Route 
         path="/cart" 
         component={Cart}></Route>

@@ -60,6 +60,9 @@ export default class Login extends Component {
                 onChange={this.handleChange}
                 type="password"
             />
+            <small id="passwordHelpBlock" class="form-text text-muted">
+                Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+            </small>
             </Form.Group>
             <Form.Group controlId="c_password" bsSize="large">
             <label>
