@@ -42,7 +42,7 @@ export default function CartTotals({value}) {
                         </h5>
                     </div>
                     <Link to="/checkout">
-                        <button>
+                        <button className="btn btn-outline-secondary">
                             CheckOUT
                         </button>
                     </Link>

@@ -3,155 +3,266 @@ import Title from './Title'
 import {ProductConsumer} from '../Context'
 import EmptyCartt from './cart/EmptyCartt'
 import CartDisplay from './cart/CartDisplay';
+import TextField from '@material-ui/core/TextField';
 
 export default class Checkout extends Component {
+    constructor()
+    {
+        super()
+        this.state = {
+            firstName: "",
+            lastName: "",
+            email:"",
+            zip:"",
+            cvv:"",
+            cardName:"",
+            cardNo:'',
+            date:"",
+            username:"",
+        }
+    }
+    handleSubmit = (e) => {
+        e.preventDefault();
+        // console.log(this.state)
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name] : e.target.value
+        })
+        // console.log(this.state)
+    }
+
     render() {
+        const emailRegex = RegExp(
+            /\S+@\S+\.\S+/
+            );
+        const cardRegex = RegExp(
+            /[0-9]{13}(?:[0-9]{3})/
+        )
+        const cvvRegex = RegExp(
+            /[0-9]{3}/
+        )
+        const zipRegex = RegExp(
+            /[0-9]{6}/
+        )
+        const dateRegex = RegExp(
+            /[0-3-]+[0-9-]+-[0-9]{4}/
+        )
+        // console.log(emailRegex,cardRegex,cvvRegex,zipRegex,dateRegex);
         return (
             <div className="container">
                 <Title name="Checkout" title="Form" />  
                 <div className="row">
                     <div className="col-md-8">
                         <h4 className="text-center">Billing Address</h4>
-                        <form className="needs-validation" novalidate>
+                        <form className="needs-validation" onSubmit={(e)=>this.handleSubmit(e)}>
                             <div className="row">
-                                <div className="col-md-6 mb-3">
-                                    <label for="firstName">First name</label>
-                                    <input type="text" className="form-control" id="firstName" autocomplete="off" required />
-                                    <div className="invalid-feedback">
-                                    Valid first name is required.
-                                    </div>
+                                <div className="col">
+                                    <TextField
+                                        id="standard-password-input"
+                                        label="FirstName"
+                                        type="text"
+                                        name="firstName"
+                                        autoComplete="off"
+                                        margin="normal"
+                                        inputProps={{maxLength:20}}
+                                        onChange={(e)=>this.handleChange(e)}
+                                        style={{width:"285px"}}
+                                        required
+                                    />
                                 </div>
-                                <div className="col-md-6 mb-3">
-                                    <label for="lastName">Last name</label>
-                                    <input type="text" className="form-control" id="lastName" placeholder="" autocomplete="off" required />
-                                    <div className="invalid-feedback">
-                                    Valid last name is required.
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="mb-3">
-                                <label for="username">Username</label>
-                                <div className="input-group">
-                                    <div className="input-group-prepend">
-                                        <span className="input-group-text">@</span>
-                                    </div>
-                                    <input type="text" className="form-control" id="username" placeholder="Username" required autocomplete="off"/>
-                                    <div className="invalid-feedback" style={{width: "100%"}}>
-                                    Your username is required.
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="mb-3">
-                                <label for="email">Email <span className="text-muted">(Optional)</span></label>
-                                <input type="email" className="form-control" id="email" placeholder="you@example.com" autocomplete="off"/>
-                                <div className="invalid-feedback">
-                                    Please enter a valid email address for shipping updates.
+                                <div className="col">
+                                    <TextField
+                                        id="standard-password-input"
+                                        label="LastName"
+                                        type="text"
+                                        name="lastName"
+                                        autoComplete="off"
+                                        margin="normal"
+                                        style={{width:"285px"}}
+                                        inputProps={{maxLength:20}}
+                                        onChange={(e)=>this.handleChange(e)}
+                                        required
+                                    />
                                 </div>
                             </div>
-
-                            <div className="mb-3">
-                                <label for="address">Address</label>
-                                <input type="text" className="form-control" id="address" placeholder="1234 Main St" required autocomplete="off"/>
-                                <div className="invalid-feedback">
-                                    Please enter your shipping address.
-                                </div>
-                            </div>
-
-                            <div className="mb-3">
-                                <label for="address2">Address 2 <span className="text-muted">(Optional)</span></label>
-                                <input type="text" className="form-control" id="address2" placeholder="Apartment" autocomplete="off"/>
-                            </div>
-
+                            <TextField
+                                id="standard-password-input"
+                                label="UserName"
+                                type="text"
+                                fullWidth
+                                autoComplete="off"
+                                margin="normal"
+                                name="username"
+                                inputProps={{maxLength:20}}
+                                onChange={(e)=>this.handleChange(e)}
+                                required
+                            />
+                            <TextField
+                                    error={this.state.email.length===0?false:!emailRegex.test(this.state.email)}
+                                    id="standard-password-input"
+                                    label="Email"
+                                    type="text"
+                                    autoComplete="off"
+                                    margin="normal"
+                                    fullWidth
+                                    name="email"
+                                    onChange={(e)=>this.handleChange(e)}
+                                    helperText="Enter a valid email Address"
+                                    required
+                            />
+                            <TextField
+                                    id="standard-textarea"
+                                    label="Address"
+                                    type="text"
+                                    autoComplete="off"
+                                    margin="normal"
+                                    fullWidth
+                                    multiline
+                                    required
+                            />
                             <div className="row">
-                                <div className="col-md-5 mb-3">
-                                    <label for="country">Country</label>
-                                    <select className="custom-select d-block w-100" id="country" required>
-                                        <option value="">Choose...</option>
-                                        <option>India</option>
-                                    </select>
-                                    <div className="invalid-feedback">
-                                    Please select a valid country.
-                                    </div>
+                                <div className="col">
+                                    <TextField
+                                        id="standard-select-currency-native"
+                                        select
+                                        label="Country"
+                                        SelectProps={{ native: true }}
+                                        margin="normal"
+                                        style={{width:"170px"}}>
+                                            <option>
+                                                Select...
+                                            </option>
+                                            <option>
+                                                India
+                                            </option>
+                                    </TextField>
                                 </div>
-                                <div className="col-md-4 mb-3">
-                                    <label for="state">State</label>
-                                    <select className="custom-select d-block w-100" id="state" required>
-                                        <option value="">Choose...</option>
-                                        <option>TamilNadu</option>
-                                    </select>
-                                    <div className="invalid-feedback">
-                                    Please provide a valid state.
+                                <div className="col">
+                                    <TextField
+                                        id="standard-select-currency-native"
+                                        select
+                                        label="State"
+                                        SelectProps={{ native: true }}
+                                        margin="normal"
+                                        style={{width:"170px"}}>
+                                            <option>
+                                                Select...
+                                            </option>
+                                            <option>
+                                                TamilNadu
+                                            </option>
+                                    </TextField>
                                 </div>
-                            </div>
-                            <div className="col-md-3 mb-3">
-                                <label for="zip">Zip</label>
-                                <input type="text" className="form-control" id="zip" placeholder="" required autocomplete="off"/>
-                                <div className="invalid-feedback">
-                                Zip code required.
+                                <div className="col">
+                                    <TextField
+                                        error={this.state.zip.length===0?false:!zipRegex.test(this.state.zip)}
+                                        id="standard-password-input"
+                                        label="ZIP"
+                                        type="text"
+                                        autoComplete="off"
+                                        margin="normal"
+                                        style={{width:"185px"}}
+                                        name="zip"
+                                        inputProps={{maxLength:"6",minLength:"6"}}
+                                        onChange={(e)=>this.handleChange(e)}
+                                        required
+                                    />
                                 </div>
-                            </div>
                         </div>
                         <hr className="mb-4" />
                         <div className="custom-control custom-checkbox">
                             <input type="checkbox" className="custom-control-input" id="same-address" />
-                            <label className="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+                            <label className="custom-control-label" htmlFor="same-address">Shipping address is the same as my billing address</label>
                         </div>
                         <div className="custom-control custom-checkbox">
                             <input type="checkbox" className="custom-control-input" id="save-info" />
-                            <label className="custom-control-label" for="save-info">Save this information for next time</label>
+                            <label className="custom-control-label" htmlFor="save-info">Save this information for next time</label>
                         </div>
                         <hr className="mb-4" />
                         <h4 className="mb-3">Payment</h4>
                         <div className="d-block my-3">
-                        <div className="custom-control custom-radio">
-                            <input id="credit" name="paymentMethod" type="radio" className="custom-control-input" checked required />
-                            <label className="custom-control-label" for="credit">Credit card</label>
+                            <div className="custom-control custom-radio">
+                                <input id="credit" name="paymentMethod" type="radio" className="custom-control-input" defaultChecked required />
+                                <label className="custom-control-label" htmlFor="credit">Credit card</label>
+                            </div>
+                            <div className="custom-control custom-radio">
+                                <input id="debit" name="paymentMethod" type="radio" className="custom-control-input" required />
+                                <label className="custom-control-label" htmlFor="debit">Debit card</label>
+                            </div>
+                            <div className="custom-control custom-radio">
+                                <input id="cash" name="paymentMethod" type="radio" className="custom-control-input" required />
+                                <label className="custom-control-label" htmlFor="cash">Cash On Delivery</label>
+                            </div>
                         </div>
-                        <div className="custom-control custom-radio">
-                            <input id="debit" name="paymentMethod" type="radio" className="custom-control-input" required />
-                            <label className="custom-control-label" for="debit">Debit card</label>
+                    <div className="row">
+                        <div className="col">
+                            <TextField
+                                id="standard-password-input"
+                                label="Cardholder Name"
+                                type="text"
+                                autoComplete="off"
+                                margin="normal"
+                                style={{width:"250px"}}
+                                name="cardName"
+                                inputProps={{maxLength:"20"}}
+                                onChange={(e)=>this.handleChange(e)}
+                                required
+                            />
                         </div>
-                        <div className="custom-control custom-radio">
-                            <input id="cash" name="paymentMethod" type="radio" className="custom-control-input" required />
-                            <label className="custom-control-label" for="cash">Cash On Delivery</label>
+                        <div className="col">
+                            <TextField
+                                id="standard-password-input"
+                                label="CardNumber"
+                                type="text"
+                                error={this.state.cardNo.length===0?false:!cardRegex.test(this.state.cardNo)}
+                                autoComplete="off"
+                                margin="normal"
+                                inputProps={{maxLength:"16",minLength:"16"}}
+                                style={{width:"300px"}}
+                                name="cardNo"
+                                onChange={(e)=>this.handleChange(e)}
+                                required
+                            />
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-6 mb-3">
-                            <label for="cc-name">Name on card</label>
-                            <input type="text" className="form-control" id="cc-name" placeholder="" required autocomplete="off"/>
-                            <small className="text-muted">Full name as displayed on card</small>
-                            <div className="invalid-feedback">
-                                Name on card is required
-                            </div>
+                        <div className="col">
+                            <TextField
+                                error={this.state.date.length===0?false:!dateRegex.test(this.state.date)}
+                                id="standard-password-input"
+                                label="Expiration Date"
+                                type="text"
+                                required
+                                name="date"
+                                autoComplete="off"
+                                margin="normal"
+                                inputProps={{maxLength:"7",minLength:"7"}}
+                                style={{width:"250px"}}
+                                onChange={(e)=>this.handleChange(e)}
+                                helperText="mm-yyyy"
+                            />
                         </div>
-                        <div className="col-md-6 mb-3">
-                            <label for="cc-number">Card number</label>
-                            <input type="text" className="form-control" id="cc-number" placeholder="" required autocomplete="off" name="cardNo"/>
-                            <div className="invalid-feedback">
-                                card number is required
-                            </div>
+                        <div className="col">
+                            <TextField
+                                error={this.state.cvv.length===0?false:!cvvRegex.test(this.state.cvv)}
+                                id="standard-password-input"
+                                label="CVV"
+                                name="cvv"
+                                type="text"
+                                autoComplete="off"
+                                margin="normal"
+                                inputProps={{maxLength:"3",minLength:"3"}}
+                                style={{width:"300px"}}
+                                required
+                                onChange={(e)=>this.handleChange(e)}
+                            />
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-md-3 mb-3">
-                            <label for="cc-expiration">Expiration</label>
-                            <input type="text" className="form-control" id="cc-expiration" placeholder="mm/yyyy" required autocomplete="off"/>
-                            <div className="invalid-feedback">
-                            Expiration date required
-                            </div>
-                        </div>
-                        <div className="col-md-3 mb-3">
-                            <label for="cc-cvv">CVV</label>
-                            <input type="text" className="form-control" id="cc-cvv" placeholder="" required autocomplete="off"/>
-                            <div className="invalid-feedback">
-                            Security code required
-                            </div>
-                        </div>
-                    </div>
-                    <hr className="mb-4" />
-                    <button className="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-                    <br />
+                        <hr className="mb-4" />
+                        <button className="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                        <br />
                     </form>
                     </div>
                     <div className="col pt-5">

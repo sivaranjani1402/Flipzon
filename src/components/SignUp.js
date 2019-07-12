@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-// import Bootstrap from "react-bootstrap";
+import TextField from '@material-ui/core/TextField';
+
 
 export default class Login extends Component {
     constructor(props) {
@@ -25,7 +26,7 @@ export default class Login extends Component {
 
     handleChange = event => {
     this.setState({
-        [event.target.id]: event.target.value
+        [event.target.name]: event.target.value
     });
     }
 
@@ -34,46 +35,53 @@ export default class Login extends Component {
     }
 
     render() {
+        const emailRegex = RegExp(
+            /\S+@\S+\.\S+/
+            );
     return (
         <div className="Login">
         <div className="container">
         <h4 className="text-center">SignUp</h4>
         <Form onSubmit={this.handleSubmit}>
-            <Form.Group controlId="email" bsSize="large">
-            <label>
-                Email
-            </label>
-            <Form.Control
-                autoFocus
-                type="email"
-                value={this.state.email}
-                onChange={this.handleChange}
+            <TextField
+                error={this.state.email.length===0?false:!emailRegex.test(this.state.email)}
+                id="standard-password-input"
+                label="Email"
+                type="text"
                 autoComplete="off"
+                margin="normal"
+                fullWidth
+                name="email"
+                onChange={(e)=>this.handleChange(e)}
+                helperText="Enter a valid email Address"
+                required
             />
-            </Form.Group>
-            <Form.Group controlId="password" bsSize="large">
-            <label>
-                Password
-            </label>
-            <Form.Control
-                value={this.state.password}
-                onChange={this.handleChange}
-                type="password"
+            <TextField
+                id="standard-password-input"
+                label="Password"
+                type="text"
+                autoComplete="off"
+                margin="normal"
+                fullWidth
+                name="password"
+                inputProps={{minLength:"8"}}
+                onChange={(e)=>this.handleChange(e)}
+                helperText="Your password must be 8 characters long"
+                required
             />
-            <small id="passwordHelpBlock" class="form-text text-muted">
-                Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-            </small>
-            </Form.Group>
-            <Form.Group controlId="c_password" bsSize="large">
-            <label>
-                Confirm Password
-            </label>
-            <Form.Control
-                value={this.state.c_password}
-                onChange={this.handleChange}
-                type="password"
+            <TextField
+                id="standard-password-input"
+                label="Confirm Password"
+                type="text"
+                autoComplete="off"
+                margin="normal"
+                fullWidth
+                name="c_password"
+                inputProps={{minLength:"8"}}
+                onChange={(e)=>this.handleChange(e)}
+                error={this.state.password===0 ? false : !(this.state.password===this.state.c_password)}
+                required
             />
-            </Form.Group>
             <Button
             block
             bsSize="large"
