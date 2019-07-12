@@ -9,25 +9,26 @@ export default function CartDisplay({value})
                 <div className="row">
                     <div className="col-3 mt-2 ml-sm-5 ml-md-auto col-sm-8 text-capitalize text-right">
                         <h5>
-                            <span classNameName="text-title">
+                            <span className="text-title">
                                 SubTotal:
                             </span>
+                            <br/>
                             <strong>
                                 Rs. {cartSubTotal}
                             </strong>
                         </h5>
                         <h5>
-                            <span classNameName="text-title">
+                            <span className="text-title">
                                 Tax:
-                            </span>
+                            </span><br/>
                             <strong>
                                 Rs. {cartTax}
                             </strong>
                         </h5>
                         <h5>
-                            <span classNameName="text-title">
+                            <span className="text-title">
                                 Total:
-                            </span>
+                            </span><br/>
                             <strong>
                                 Rs. {cartTotal}
                             </strong>

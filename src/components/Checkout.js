@@ -5,6 +5,7 @@ import EmptyCartt from './cart/EmptyCartt'
 import CartDisplay from './cart/CartDisplay';
 import TextField from '@material-ui/core/TextField';
 
+
 export default class Checkout extends Component {
     constructor()
     {
@@ -51,10 +52,14 @@ export default class Checkout extends Component {
         )
         // console.log(emailRegex,cardRegex,cvvRegex,zipRegex,dateRegex);
         return (
-            <div className="container">
-                <Title name="Checkout" title="Form" />  
-                <div className="row">
-                    <div className="col-md-8">
+            
+            <ProductConsumer>
+            {(value) => {
+                    return(
+                    <div className="container">
+                        <Title name="Checkout" title="Form" />  
+                            <div className="row">
+                            <div className="col-md-8">
                         <h4 className="text-center">Billing Address</h4>
                         <form className="needs-validation" onSubmit={(e)=>this.handleSubmit(e)}>
                             <div className="row">
@@ -160,7 +165,10 @@ export default class Checkout extends Component {
                                         error={this.state.zip.length===0?false:!zipRegex.test(this.state.zip)}
                                         id="standard-password-input"
                                         label="ZIP"
-                                        type="text"
+                                        type="number"
+                                        onInput = {(e) =>{
+                                    e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,6)
+                                }}
                                         autoComplete="off"
                                         margin="normal"
                                         style={{width:"185px"}}
@@ -215,7 +223,10 @@ export default class Checkout extends Component {
                             <TextField
                                 id="standard-password-input"
                                 label="CardNumber"
-                                type="text"
+                                type="number"
+                                onInput = {(e) =>{
+                                    e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,16)
+                                }}
                                 error={this.state.cardNo.length===0?false:!cardRegex.test(this.state.cardNo)}
                                 autoComplete="off"
                                 margin="normal"
@@ -248,12 +259,14 @@ export default class Checkout extends Component {
                             <TextField
                                 error={this.state.cvv.length===0?false:!cvvRegex.test(this.state.cvv)}
                                 id="standard-password-input"
+                                type="number"
                                 label="CVV"
                                 name="cvv"
-                                type="text"
                                 autoComplete="off"
                                 margin="normal"
-                                inputProps={{maxLength:"3",minLength:"3"}}
+                                onInput = {(e) =>{
+                                    e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,3)
+                                }}
                                 style={{width:"300px"}}
                                 required
                                 onChange={(e)=>this.handleChange(e)}
@@ -265,7 +278,7 @@ export default class Checkout extends Component {
                         <br />
                     </form>
                     </div>
-                    <div className="col pt-5">
+                    <div className="col-3 pt-3">
                         <ProductConsumer>
                             {(value)=>{
                                 const {cart} = value
@@ -285,7 +298,11 @@ export default class Checkout extends Component {
                         </ProductConsumer>
                     </div>
                 </div>
-            </div>
+            </div>)
+                }        
+            }
+        </ProductConsumer>
+                
         )
     }
 }

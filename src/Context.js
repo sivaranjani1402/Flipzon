@@ -14,7 +14,7 @@ class ProductProvider extends Component {
         cartSubTotal : 0,
         cartTax : 0,
         cartTotal : 0,
-        login:false
+        login:false,
     }
     componentDidMount()
     {
@@ -58,6 +58,13 @@ class ProductProvider extends Component {
             this.addTotals()
         })
         this.openModal(id)
+    }
+
+    afterLogin = ()=>{
+        if(this.state.login)
+        this.setState({
+            login:true
+        })
     }
 
     openModal = (id) =>{

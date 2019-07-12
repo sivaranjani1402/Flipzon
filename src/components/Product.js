@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 export default class Product extends Component {
     render() {
         const {id,title,img,price,inCart} = this.props.product;
-        console.log(id,title,price,inCart);
+        // console.log(id,title,price,inCart);
         return (
             <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
                 <div className="card">
@@ -23,6 +23,7 @@ export default class Product extends Component {
                     </div>
                     )}
                     </ProductConsumer>
+                    <Link to="/details">
                     <div className="card-footer d-flex justify-content-between">
                         <p className="align-self-center mb-0">
                         {title}
@@ -34,6 +35,7 @@ export default class Product extends Component {
                         {price}
                         </h5>
                     </div>
+                    </Link>
                 </div>
             </ProductWrapper>
         )

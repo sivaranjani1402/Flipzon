@@ -17,7 +17,7 @@ export default function CartTotals({value}) {
                             </button>
                         </Link>
                         <h5>
-                            <span classNameName="text-title">
+                            <span className="text-title">
                                 SubTotal:
                             </span>
                             <strong>
@@ -25,7 +25,7 @@ export default function CartTotals({value}) {
                             </strong>
                         </h5>
                         <h5>
-                            <span classNameName="text-title">
+                            <span className="text-title">
                                 Tax:
                             </span>
                             <strong>
@@ -33,7 +33,7 @@ export default function CartTotals({value}) {
                             </strong>
                         </h5>
                         <h5>
-                            <span classNameName="text-title">
+                            <span className="text-title">
                                 Total:
                             </span>
                             <strong>
@@ -41,7 +41,7 @@ export default function CartTotals({value}) {
                             </strong>
                         </h5>
                     </div>
-                    <Link to="/checkout">
+                    <Link to="/login">
                         <button className="btn btn-outline-secondary">
                             CheckOUT
                         </button>

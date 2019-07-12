@@ -8,9 +8,9 @@ import Details from './Details'
 import Cart from './cart/Cart'
 import Default from './Default'
 import Modal from './Modal'
-import Login from './login';
 import SignUp from './SignUp';
 import Checkout from "./Checkout";
+import ModalCheckOut from './ModalCheckOut';
 
 function App() {
   return (
@@ -31,11 +31,11 @@ function App() {
         path="/cart" 
         component={Cart}></Route>
         <Route 
-        path="/login" 
-        component={Login}></Route>
-        <Route 
         path="/signup" 
         component={SignUp}></Route>
+        <Route 
+        path="/login" 
+        component={ModalCheckOut}></Route>
         <Route  
         component={Default}></Route>
       </Switch>
